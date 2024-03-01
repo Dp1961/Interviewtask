@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import "./style.css";
 import 'bootstrap/dist/css/bootstrap.css'
+import draftToHtml from 'draftjs-to-html';
 
 import { convertToRaw } from 'draft-js';
 
@@ -19,8 +20,6 @@ const EditorComponent = () => {
         const content = JSON.stringify(convertToRaw(editorState.getCurrentContent()));
         console.log(content);
     };
-
-    
 
 
     return (
@@ -54,7 +53,11 @@ const EditorComponent = () => {
                             onEditorStateChange={handleEditorChange}
                         />
                         <button onClick={saveContent}>Save Content</button>
-                        
+                        <br/>
+                        <textarea className='mt-3'
+                            disabled
+                            value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+                        />
                     </div>
                 </div>
             </div>
